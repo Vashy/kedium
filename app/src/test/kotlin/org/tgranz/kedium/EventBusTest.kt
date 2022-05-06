@@ -55,6 +55,18 @@ class EventBusTest : StringSpec({
         subscriber2 shouldHaveReactedTo FakeEvent2("Event #2")
         subscriber2 shouldHaveReactedTo FakeEvent2("Event #3")
     }
+
+    "unsubscribed subscriber doesn't react to supported published event" {
+        val subscriber = FakeEventPolicy1()
+        val eventBus = EventBus().apply {
+            subscribe(subscriber)
+            unsubscribe(subscriber)
+        }
+
+        eventBus.publish(FakeEvent1("Some event"))
+
+        subscriber shouldNotHaveReactedTo  FakeEvent1("Some event")
+    }
 })
 
 private data class FakeEvent1(private val info: String) : Event
