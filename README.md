@@ -1,3 +1,5 @@
+### Work in progress
+
 # Kedium - Simple Portfolio Application in DDD
 
 * [Assignment](https://softwareengineering.stackexchange.com/questions/420710/domain-driven-design-exercise)
