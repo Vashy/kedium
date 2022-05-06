@@ -21,7 +21,7 @@ class FakeEmailSenderPolicy : EventPolicy {
         toList += emails
     }
 
-    fun hasBeenSent(email: Email, event: ArticlePublishedEvent) {
+    fun `has been sent`(email: Email, event: ArticlePublishedEvent) {
         withClue("Email with event: $event should be published to email: $email, but was not.\n" +
                 "Configured emails: [${toList.joinToString("; ")}]") {
             mailSent.contains(email to event) shouldBe true

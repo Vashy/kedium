@@ -12,4 +12,7 @@ class Application(
     fun publishArticle(customerId: CustomerId, article: Article) {
         articleService.publishArticle(customerId, article)
     }
+
+    fun pinArticle(customer: CustomerId, article: Article) {
+    }
 }
