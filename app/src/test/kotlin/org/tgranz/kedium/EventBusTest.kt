@@ -1,6 +1,5 @@
 package org.tgranz.kedium
 
-import io.kotest.core.spec.IsolationMode.InstancePerTest
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldNotContain
@@ -10,8 +9,6 @@ import org.tgranz.kedium.event.EventBus
 import org.tgranz.kedium.event.EventPolicy
 
 class EventBusTest : StringSpec({
-    isolationMode = InstancePerTest
-
     "subscriber has no events when initialized" {
         val subscriber = FakeEventPolicy1()
 
