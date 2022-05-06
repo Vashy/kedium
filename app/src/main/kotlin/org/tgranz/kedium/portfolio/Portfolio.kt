@@ -8,20 +8,20 @@ class Portfolio(
     val ownerId: CustomerId,
     articles: List<Article>,
 ) {
-    private val mutableEvents: MutableList<Event> = mutableListOf()
-    private val mutableArticles: MutableList<Article> = articles.toMutableList()
+    private val _events: MutableList<Event> = mutableListOf()
+    private val _articles: MutableList<Article> = articles.toMutableList()
 
-    val emittedEvents: List<Event> = mutableEvents
-    val articles: List<Article> = mutableArticles
+    val emittedEvents: List<Event> = _events
+    val articles: List<Article> = _articles
 
     fun publish(article: Article) {
-        mutableArticles.add(article)
+        _articles += article
 
         emit(ArticlePublishedEvent(article))
     }
 
     private fun emit(event: Event) {
-        mutableEvents.add(event)
+        _events += event
     }
 
     override fun equals(other: Any?): Boolean {
