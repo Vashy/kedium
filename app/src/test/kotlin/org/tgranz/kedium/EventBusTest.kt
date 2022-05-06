@@ -5,18 +5,21 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldNotContain
 import io.kotest.matchers.shouldBe
+import org.tgranz.kedium.event.Event
+import org.tgranz.kedium.event.EventBus
+import org.tgranz.kedium.event.EventPolicy
 
 class EventBusTest : StringSpec({
     isolationMode = InstancePerTest
 
     "subscriber has no events when initialized" {
-        val subscriber = FakeSubscriber1()
+        val subscriber = FakeEventPolicy1()
 
         subscriber.shouldBeEmpty()
     }
 
     "subscriber reacts to supported published event" {
-        val subscriber = FakeSubscriber1()
+        val subscriber = FakeEventPolicy1()
         val eventBus = EventBus().apply { subscribe(subscriber) }
 
         eventBus.publish(FakeEvent1("Some event"))
@@ -25,7 +28,7 @@ class EventBusTest : StringSpec({
     }
 
     "subscriber doesn't react to unsupported published event" {
-        val subscriber = FakeSubscriber1()
+        val subscriber = FakeEventPolicy1()
         val eventBus = EventBus().apply { subscribe(subscriber) }
 
         eventBus.publish(FakeEvent2("Some event"))
@@ -34,8 +37,8 @@ class EventBusTest : StringSpec({
     }
 
     "multiple subscriber should react only to supported events" {
-        val subscriber1 = FakeSubscriber1()
-        val subscriber2 = FakeSubscriber2()
+        val subscriber1 = FakeEventPolicy1()
+        val subscriber2 = FakeEventPolicy2()
         val eventBus = EventBus().apply {
             subscribe(subscriber1)
             subscribe(subscriber2)
@@ -56,7 +59,7 @@ class EventBusTest : StringSpec({
 
 private data class FakeEvent1(private val info: String) : Event
 
-private class FakeSubscriber1 : Subscriber {
+private class FakeEventPolicy1 : EventPolicy {
     private val publishedEvents: MutableList<FakeEvent1> = mutableListOf()
 
     override fun supports(event: Event): Boolean = event is FakeEvent1
@@ -80,7 +83,7 @@ private class FakeSubscriber1 : Subscriber {
 
 private data class FakeEvent2(val info: String) : Event
 
-private class FakeSubscriber2 : Subscriber {
+private class FakeEventPolicy2 : EventPolicy {
     private val publishedEvents: MutableList<FakeEvent2> = mutableListOf()
 
     override fun supports(event: Event): Boolean = event is FakeEvent2

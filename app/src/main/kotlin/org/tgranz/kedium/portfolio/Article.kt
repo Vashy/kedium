@@ -1,4 +1,4 @@
-package org.tgranz.kedium
+package org.tgranz.kedium.portfolio
 
 class Article(val id: ArticleId, title: ArticleTitle, content: ArticleContent) {
     override fun equals(other: Any?): Boolean {

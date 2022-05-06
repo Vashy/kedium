@@ -1,9 +1,9 @@
 package org.tgranz.kedium.fakes
 
-import org.tgranz.kedium.CustomerId
-import org.tgranz.kedium.EventPublisher
-import org.tgranz.kedium.Portfolio
-import org.tgranz.kedium.PortfolioRepository
+import org.tgranz.kedium.customer.CustomerId
+import org.tgranz.kedium.event.EventPublisher
+import org.tgranz.kedium.portfolio.Portfolio
+import org.tgranz.kedium.portfolio.PortfolioRepository
 
 class InMemoryPortfolioRepository(private val eventPublisher: EventPublisher) : PortfolioRepository {
     val portfolios = mutableListOf<Portfolio>()

@@ -1,11 +1,12 @@
 package org.tgranz.kedium.fakes
 
+import io.kotest.assertions.withClue
 import io.kotest.matchers.shouldBe
-import org.tgranz.kedium.ArticlePublishedEvent
-import org.tgranz.kedium.Event
-import org.tgranz.kedium.Subscriber
+import org.tgranz.kedium.portfolio.ArticlePublishedEvent
+import org.tgranz.kedium.event.Event
+import org.tgranz.kedium.event.EventPolicy
 
-class FakeEmailSenderPolicy : Subscriber {
+class FakeEmailSenderPolicy : EventPolicy {
     private val toList = mutableListOf<Email>()
     private val mailSent = mutableListOf<Pair<Email, ArticlePublishedEvent>>()
 
@@ -20,7 +21,12 @@ class FakeEmailSenderPolicy : Subscriber {
         toList += emails
     }
 
-    fun hasBeenSent(email: Email, event: ArticlePublishedEvent) = mailSent.contains(email to event) shouldBe true
+    fun hasBeenSent(email: Email, event: ArticlePublishedEvent) {
+        withClue("Email with event: $event should be published to email: $email, but was not.\n" +
+                "Configured emails: [${toList.joinToString("; ")}]") {
+            mailSent.contains(email to event) shouldBe true
+        }
+    }
 }
 
 private typealias Email = String

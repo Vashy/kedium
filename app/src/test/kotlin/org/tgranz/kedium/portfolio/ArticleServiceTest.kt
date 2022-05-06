@@ -1,4 +1,4 @@
-package org.tgranz.kedium
+package org.tgranz.kedium.portfolio
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.IsolationMode.InstancePerTest
@@ -7,6 +7,9 @@ import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.shouldBe
 import io.mockk.mockk
 import io.mockk.verify
+import org.tgranz.kedium.customer.CustomerId
+import org.tgranz.kedium.customer.CustomerNotFoundException
+import org.tgranz.kedium.event.EventPublisher
 import org.tgranz.kedium.fakes.InMemoryPortfolioRepository
 import org.tgranz.kedium.fixtures.aEmptyPortfolio
 import org.tgranz.kedium.fixtures.theArticle

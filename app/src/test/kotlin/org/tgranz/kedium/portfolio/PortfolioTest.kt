@@ -1,11 +1,13 @@
-package org.tgranz.kedium
+package org.tgranz.kedium.portfolio
 
 import io.kotest.core.spec.IsolationMode.InstancePerTest
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.shouldBe
+import org.tgranz.kedium.customer.CustomerId
 import org.tgranz.kedium.fixtures.aEmptyPortfolio
 import org.tgranz.kedium.fixtures.theArticle
+import org.tgranz.kedium.portfolio.ArticlePublishedEvent
 
 class PortfolioTest : ShouldSpec({
     isolationMode = InstancePerTest

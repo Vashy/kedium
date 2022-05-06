@@ -1,4 +1,7 @@
-package org.tgranz.kedium
+package org.tgranz.kedium.portfolio
+
+import org.tgranz.kedium.customer.CustomerId
+import org.tgranz.kedium.event.Event
 
 class Portfolio(
     val id: PortfolioId,
