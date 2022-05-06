@@ -21,7 +21,7 @@ class EventBusTest : StringSpec({
 
         eventBus.publish(FakeEvent1("Some event"))
 
-        subscriber shouldHaveReactedTo FakeEvent1("Some event")
+        subscriber `should have reacted to` FakeEvent1("Some event")
     }
 
     "subscriber doesn't react to unsupported published event" {
@@ -30,7 +30,7 @@ class EventBusTest : StringSpec({
 
         eventBus.publish(FakeEvent2("Some event"))
 
-        subscriber shouldNotHaveReactedTo FakeEvent2("Some event")
+        subscriber `should not have reacted to` FakeEvent2("Some event")
     }
 
     "multiple subscriber should react only to supported events" {
@@ -45,12 +45,12 @@ class EventBusTest : StringSpec({
         eventBus.publish(FakeEvent2("Event #2"))
         eventBus.publish(FakeEvent2("Event #3"))
 
-        subscriber1 shouldHaveReactedTo FakeEvent1("Event #1")
-        subscriber1 shouldNotHaveReactedTo FakeEvent2("Event #2")
-        subscriber1 shouldNotHaveReactedTo FakeEvent2("Event #3")
-        subscriber2 shouldNotHaveReactedTo FakeEvent1("Event #1")
-        subscriber2 shouldHaveReactedTo FakeEvent2("Event #2")
-        subscriber2 shouldHaveReactedTo FakeEvent2("Event #3")
+        subscriber1 `should have reacted to` FakeEvent1("Event #1")
+        subscriber1 `should not have reacted to` FakeEvent2("Event #2")
+        subscriber1 `should not have reacted to` FakeEvent2("Event #3")
+        subscriber2 `should have reacted to` FakeEvent1("Event #1")
+        subscriber2 `should not have reacted to` FakeEvent2("Event #2")
+        subscriber2 `should not have reacted to` FakeEvent2("Event #3")
     }
 
     "unsubscribed subscriber doesn't react to supported published event" {
@@ -62,7 +62,7 @@ class EventBusTest : StringSpec({
 
         eventBus.publish(FakeEvent1("Some event"))
 
-        subscriber shouldNotHaveReactedTo  FakeEvent1("Some event")
+        subscriber `should not have reacted to`  FakeEvent1("Some event")
     }
 })
 
@@ -77,11 +77,11 @@ private class FakeEventPolicy1 : EventPolicy {
         publishedEvents.add(event as FakeEvent1)
     }
 
-    infix fun shouldHaveReactedTo(event: Event) {
+    infix fun `should have reacted to`(event: Event) {
         publishedEvents shouldContain event
     }
 
-    infix fun shouldNotHaveReactedTo(event: Event) {
+    infix fun `should not have reacted to`(event: Event) {
         publishedEvents shouldNotContain event
     }
 
@@ -101,11 +101,11 @@ private class FakeEventPolicy2 : EventPolicy {
         publishedEvents.add(event as FakeEvent2)
     }
 
-    infix fun shouldHaveReactedTo(event: Event) {
+    infix fun `should not have reacted to`(event: Event) {
         publishedEvents shouldContain event
     }
 
-    infix fun shouldNotHaveReactedTo(event: Event) {
+    infix fun `should have reacted to`(event: Event) {
         publishedEvents shouldNotContain event
     }
 }
